@@ -64,7 +64,7 @@ class Database {
 	 * This function interacts with the DB. Is used to insert, delete,
 	 * update, etc. elements in the DB.
 	 *
-	 * @access protected
+	 * @access public
 	 * @return int       Return the affected row ID
 	 */
 	public function query() {
@@ -103,7 +103,7 @@ class Database {
 	/**
 	 * Return the query result from row
 	 *
-	 * @access protected
+	 * @access public
 	 * @return array    Return the selected row data
 	 */
 	public function get_row() {
@@ -133,7 +133,7 @@ class Database {
 	/**
 	 * Return all the results found in the query
 	 *
-	 * @access protected
+	 * @access public
 	 * @return array    Return all the info found
 	 */
 	public function get_results() {
