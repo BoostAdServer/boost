@@ -31,16 +31,16 @@ class Route {
 
         $request_uri   = @parse_url( $_SERVER['REQUEST_URI'] );
         $path          = $request_uri['path'];
-        $regex         = '/\/dashboard\/([A-Za-z\-]+)\/?([0-9]+)?/';
+        /**
+         * Set the regex to check if the URL matches with the BOOST standards
+         * @todo Fix the regex, it's sloppy
+         */
+        $regex         = '/\/dashboard\/([A-Za-z\-]+)\/?([0-9]+)?\/?([0-9]+)?\/?([0-9]+)?/';
 
         if( preg_match( $regex, $path, $match ) ) :
-
             $this->get( $match );
-
         else :
-
             $this->get( 'home' );
-
         endif;
 
     }
@@ -49,24 +49,23 @@ class Route {
      *
      *
      */
-    function get( array $match ) {
-
+    function get( $match ) {
+        # Calling the default routes
         $routes = $this->routes;
 
-        if( array_key_exists( $match[1], $routes ) ) :
-            require "Template/header.html";
-            require "Template/{$match[1]}.html";
-            require "Template/footer.html";
+        $template = new Template;
+
+        echo $template->render( "header.html" );
+
+        if( is_array( $match ) && array_key_exists( $match[1], $routes ) ) :
+            echo $template->render( "{$match[1]}.html" );
+        else :
+            require "Template/index.html";
         endif;
 
-    }
-
-    /**
-     *
-     *
-     */
-    private function parse( $element ) {
+        echo $template->render( "footer.html" );
 
     }
+
 
 }
