@@ -14,10 +14,10 @@ class Template {
 
     function render( $filename ) {
 
-        $search  = [ '{{site.name}}', '{{user.name}}', '{{user.email}}' ];
-        $replace = [ 'Advertiser', 'Stranger', 'nicolas@dinvaders.com' ];
+        $mockup = new Mockup;
+        $data = $mockup->dispatch( $filename );
 
-        $content = str_replace( $search, $replace, $this->get( $filename ) );
+        $content = str_replace( $data['search'], $data['replace'], $this->get( $filename ) );
 
         echo $content;
 
@@ -34,6 +34,10 @@ class Template {
             ob_end_clean();
             return $content;
         endif;
+
+    }
+
+    function pattern( $route ) {
 
     }
 

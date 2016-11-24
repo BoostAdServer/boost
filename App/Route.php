@@ -21,9 +21,9 @@ class Route {
         'advertiser-campaigns' => 'advertiser-campaigns/{advertiser}',
         'advertiser-edit'      => 'advertiser-edit/{advertiser}',
         'advertiser'           => 'advertiser',
-        'campaign-edit'        => 'campaign-edit/{advertiser}/{campaign}',
+        'campaign-edit'        => 'campaign-edit/{campaign}/',
         'campaign-banners'     => 'campaign-banners',
-        'banner-edit'          => 'banner-edit/{advertiser}/{campaign}/{banner}',
+        'banner-edit'          => 'banner-edit/{banner}/',
         'stats'                => 'stats'
     ];
 
@@ -35,12 +35,12 @@ class Route {
          * Set the regex to check if the URL matches with the BOOST standards
          * @todo Fix the regex, it's sloppy
          */
-        $regex         = '/\/dashboard\/([A-Za-z\-]+)\/?([0-9]+)?\/?([0-9]+)?\/?([0-9]+)?/';
+        $regex         = '/\/dashboard\/([A-Za-z\-]+)\/?([0-9]+)?\/?/';
 
         if( preg_match( $regex, $path, $match ) ) :
-            $this->get( $match );
+            $this->render( $match );
         else :
-            $this->get( 'home' );
+            $this->render( 'home' );
         endif;
 
     }
@@ -49,21 +49,24 @@ class Route {
      *
      *
      */
-    function get( $match ) {
+    function render( $match ) {
         # Calling the default routes
         $routes = $this->routes;
+        # Gather the page info
+        $mockup = new Mockup;
+        $mockup->gather( $match );
 
         $template = new Template;
 
-        echo $template->render( "header.html" );
+        echo $template->render( 'header.html' );
 
         if( is_array( $match ) && array_key_exists( $match[1], $routes ) ) :
             echo $template->render( "{$match[1]}.html" );
         else :
-            require "Template/index.html";
+            echo $template->render( 'index.html' );
         endif;
 
-        echo $template->render( "footer.html" );
+        echo $template->render( 'footer.html' );
 
     }
 
