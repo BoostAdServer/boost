@@ -15,7 +15,7 @@ class Template {
     function render( $filename ) {
 
         $mockup = new Mockup;
-        $data = $mockup->dispatch( $filename );
+        $data   = $mockup->dispatch( $filename );
 
         $content = str_replace( $data['search'], $data['replace'], $this->get( $filename ) );
 

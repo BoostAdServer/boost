@@ -21,13 +21,15 @@ class Mockup {
         $search = [
             '{{site.name}}',
             '{{site.description}}',
-            '{{site.generator}}'
+            '{{site.generator}}',
+            '{{url.home}}'
         ];
 
         $replace = [
             'The Place',
             'Lalala',
-            'Boost Adserver'
+            'Boost Adserver',
+            'http://localhost/boost/'
         ];
 
         return array( 'search' => $search, 'replace' => $replace );
@@ -42,11 +44,34 @@ class Mockup {
 
         if( is_array( $data ) ) :
 
-            if( isset( $data[1] ) ) :
+            if( isset( $data[2] ) ) :
+
+            else :
 
             endif;
 
         endif;
+
+    }
+
+    function match( $data ) {
+
+        # For demostration purposes only, this will be dynamic later
+        $search = [
+            '{{advertiser.list}}',
+            '{{site.description}}',
+            '{{site.generator}}',
+            '{{url.home}}'
+        ];
+
+        $replace = [
+            '<li>Brou</li><li>IMM</li>',
+            'Lalala',
+            'Boost Adserver',
+            'http://localhost/boost/'
+        ];
+
+        return array( 'search' => $search, 'replace' => $replace );
 
     }
 
@@ -63,7 +88,7 @@ class Mockup {
         elseif( $data == 'footer.html' ) :
 
         else :
-
+            $content = $this->match( $data );
         endif;
 
         return $content;

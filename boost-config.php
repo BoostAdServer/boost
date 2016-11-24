@@ -40,7 +40,7 @@ if( !defined( 'ABSPATH' ) )
 
 # The Template path
 if( !defined( 'TEMPLATEPATH' ) )
-	define( 'TEMPLATEPATH', ABSPATH . 'front-end' );
+	define( 'TEMPLATEPATH', ABSPATH . 'Template/' );
 
 # The App path
 if( !defined( 'APPPATH' ) )
